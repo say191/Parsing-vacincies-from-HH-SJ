@@ -3,39 +3,22 @@ import json
 import os
 
 
-class JSONActions(ABC):
+class JSONActions(ABC):  # Создаем абстрактный класс и абстрактный метод
     @abstractmethod
     def add_vacancies(self):
         pass
 
-    @abstractmethod
-    def get_vacancy_by_salary(self, vacancies):
-        pass
 
-    @abstractmethod
-    def delete_vacancies(self, vacancies):
-        pass
-
-    @abstractmethod
-    def sorted_vacancies(self, vacancies):
-        pass
-
-
-class JSONSaver(JSONActions):
+class JSONSaver(JSONActions):  # Создаем класс с атрибутом пути к файлу
     path = os.path.join(os.path.dirname(__file__), 'vacancies.csv')
 
     def __init__(self, data):
         self.data = data
 
+    # При инициализации экземпляров поле data будем передавать выгруженную информацию о вакансиях
     def add_vacancies(self):
-        with open(self.path, 'w') as file:
-            json.dump(self.data, file, indent=4)
+        with open(self.path, 'w') as file:  # Открываем файл с модификацией на запись
+            json.dump(self.data, file, indent=4)  # Записываем информацию в файл в формате json
 
-    def get_vacancy_by_salary(self, vacancies):
-        pass
-
-    def delete_vacancies(self, vacancies):
-        pass
-
-    def sorted_vacancies(self, vacancies):
-        pass
+    """Данный метод записывает в файл всю информацию о вакансиях в файл в формате json,
+    если файла нету, то он создатся автоматически"""
